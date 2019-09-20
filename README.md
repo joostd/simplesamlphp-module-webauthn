@@ -72,25 +72,25 @@ You first need to setup the database.
 
 Here is the initialization SQL script:
 
-CREATE TABLE credentials (
-    creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    user_id VARCHAR(80) NOT NULL,
-    credentialId VARCHAR(500) NOT NULL,
-    credential MEDIUMBLOB NOT NULL,
-    signCounter INT NOT NULL,
-    friendlyName VARCHAR(100) DEFAULT "Unnamed Token",
-    UNIQUE (user_id,credentialId)
-);
+    CREATE TABLE credentials (
+        creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        user_id VARCHAR(80) NOT NULL,
+        credentialId VARCHAR(500) NOT NULL,
+        credential MEDIUMBLOB NOT NULL,
+        signCounter INT NOT NULL,
+        friendlyName VARCHAR(100) DEFAULT "Unnamed Token",
+        UNIQUE (user_id,credentialId)
+    );
 
-GRANT SELECT,INSERT,UPDATE,DELETE ON ...credentials TO '...dbuser'@'1.2.3.4' IDENTIFIED BY '...dbpass';
+    GRANT SELECT,INSERT,UPDATE,DELETE ON ...credentials TO '...dbuser'@'1.2.3.4' IDENTIFIED BY '...dbpass';
 
-CREATE TABLE userstatus (
-    user_id VARCHAR(80) NOT NULL,
-    fido2Status ENUM("FIDO2Disabled","FIDO2Enabled") NOT NULL DEFAULT "FIDO2Disabled",
-    UNIQUE (user_id)
-);
+    CREATE TABLE userstatus (
+        user_id VARCHAR(80) NOT NULL,
+        fido2Status ENUM("FIDO2Disabled","FIDO2Enabled") NOT NULL DEFAULT "FIDO2Disabled",
+        UNIQUE (user_id)
+    );
 
-GRANT SELECT ON ...userstatus TO '...dbuser'@'1.2.3.4' IDENTIFIED BY '...dbpass';
+    GRANT SELECT ON ...userstatus TO '...dbuser'@'1.2.3.4' IDENTIFIED BY '...dbpass';
 
 The `webauthn:Database` backend storage has the following options:
 

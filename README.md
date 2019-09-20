@@ -13,57 +13,57 @@ How to setup the webauthn module
 You need to enable and configure the module's authprocfilter at a priority level
 so that it takes place AFTER the first-factor authentication. E.g. at 100:
 
-100 => 
-    ['class' => 'webauthn:WebAuthn',
+    100 => 
+        ['class' => 'webauthn:WebAuthn',
 
-    /* required configuration parameters */
+        /* required configuration parameters */
 
-        'store' => [
-            'webauthn:Database',
-            'dsn' => 'mysql:host=db.example.org;dbname=fido2',
-            'username' => 'simplesaml',
-            'password' => 'sdfsdf',
-        ],
+            'store' => [
+                'webauthn:Database',
+                'dsn' => 'mysql:host=db.example.org;dbname=fido2',
+                'username' => 'simplesaml',
+                'password' => 'sdfsdf',
+            ],
         
-    'attrib_username' => 'urn:oid:1.3.6.1.4.1.23735.100.0',
-    'attrib_displayname' => 'urn:oid:2.5.4.3',
+        'attrib_username' => 'urn:oid:1.3.6.1.4.1.23735.100.0',
+        'attrib_displayname' => 'urn:oid:2.5.4.3',
 
-    /* optional configuration parameters */
+        /* optional configuration parameters */
 
-    /* FIDO2 is phishing-resistent by binding generated credentials to a scope.
-     * Browsers will only invoke the registration/authentication if the scope
-     * matches the principal domain name the user is currently visiting.
-     * If not specified, the scope will be the hostname of the IdP as per 
-     * its metadata. It is permissible to widen the scope up to the prinicpal
-     * domain though (e.g. authentication service is "saml.example.com" => scope
-     * can be extended to "example.com"; but not "examp1e.com". A registered
-     * FIDO2 token can then also be used on other servers in the same domain.
-     * If configuring this item, be sure that the authentication server name and
-     * the desired scope are a suffix match.
-     */
-    'scope' => 'example.com',
+        /* FIDO2 is phishing-resistent by binding generated credentials to a scope.
+         * Browsers will only invoke the registration/authentication if the scope
+         * matches the principal domain name the user is currently visiting.
+         * If not specified, the scope will be the hostname of the IdP as per 
+         * its metadata. It is permissible to widen the scope up to the prinicpal
+         * domain though (e.g. authentication service is "saml.example.com" => scope
+         * can be extended to "example.com"; but not "examp1e.com". A registered
+         * FIDO2 token can then also be used on other servers in the same domain.
+         * If configuring this item, be sure that the authentication server name and
+         * the desired scope are a suffix match.
+         */
+        'scope' => 'example.com',
 
-    /* the following will interactively ask the user if he is willing to share
-     * manufacturer and model information during credential registration. 
-     * The user can decline, in which case registration will still succeed but
-     * vendor and model will be logged as "unknown model [unknown vendor]"
-     *
-     * When not requesting this, there is one less user interaction during the
-     * registration process; and no model information will be saved.
-     *
-     * defaults to "false"
-     */
-    'request_tokenmodel' => true,
+        /* the following will interactively ask the user if he is willing to share
+         * manufacturer and model information during credential registration. 
+         * The user can decline, in which case registration will still succeed but
+         * vendor and model will be logged as "unknown model [unknown vendor]"
+         *
+         * When not requesting this, there is one less user interaction during the
+         * registration process; and no model information will be saved.
+         *
+         * defaults to "false"
+         */
+        'request_tokenmodel' => true,
 
-    /* should FIDO2 be enabled by default for all users? If not, users need to
-     * be white-listed in the database - other users simply pass through the
-     * filter without being subjected to 2FA.
-     *
-     * defaults to "disabled by default" === false
-     */
-    'default_enable' => false,
+        /* should FIDO2 be enabled by default for all users? If not, users need to
+         * be white-listed in the database - other users simply pass through the
+         * filter without being subjected to 2FA.
+         *
+         * defaults to "disabled by default" === false
+         */
+        'default_enable' => false,
 
-    ],
+        ],
 
 Using storage
 -------------
